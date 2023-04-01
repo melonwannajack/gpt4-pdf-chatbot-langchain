@@ -11,6 +11,7 @@ export default async function handler(
 ) {
   const { question, history } = req.body;
 
+  console.log(history)
   if (!question) {
     return res.status(400).json({ message: 'No question in the request' });
   }
@@ -53,7 +54,9 @@ export default async function handler(
       chat_history: history || [],
     });
 
-    console.log('response', response);
+    // console.log('response', response);
+    console.log('history', history);
+
     sendData(JSON.stringify({ sourceDocs: response.sourceDocuments }));
   } catch (error) {
     console.log('error', error);

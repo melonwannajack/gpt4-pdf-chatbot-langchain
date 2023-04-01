@@ -27,7 +27,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about this legal case?',
+        message: 'Quelle est ta question ?',
         type: 'apiMessage',
       },
     ],
@@ -86,7 +86,7 @@ export default function Home() {
           history,
         }),
         signal: ctrl.signal,
-        onmessage: (event) => {
+        onmessage: (event: MessageEvent) => {
           if (event.data === '[DONE]') {
             setMessageState((state) => ({
               history: [...state.history, [question, state.pending ?? '']],
@@ -131,7 +131,7 @@ export default function Home() {
     (e: any) => {
       if (e.key === 'Enter' && query) {
         handleSubmit(e);
-      } else if (e.key == 'Enter') {
+      } else if (e.key === 'Enter') {
         e.preventDefault();
       }
     },
@@ -165,7 +165,7 @@ export default function Home() {
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Your Legal Docs
+            CHAT-PITRE F
           </h1>
           <main className={styles.main}>
             <div className={styles.cloud}>
@@ -282,7 +282,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        : 'Pose moi une question'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -319,8 +319,8 @@ export default function Home() {
           </main>
         </div>
         <footer className="m-auto p-4">
-          <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
+          <a href="https://elmy-energie.fr/">
+            Powered by elmy.
           </a>
         </footer>
       </Layout>

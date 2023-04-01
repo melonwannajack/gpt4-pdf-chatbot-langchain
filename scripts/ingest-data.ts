@@ -21,8 +21,8 @@ export const run = async () => {
 
     /* Split text into chunks */
     const textSplitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
-      chunkOverlap: 200,
+      chunkSize: 2000,
+      chunkOverlap: 400,
     });
 
     const docs = await textSplitter.splitDocuments(rawDocs);
@@ -31,14 +31,21 @@ export const run = async () => {
     console.log('creating vector store...');
     /*create and store the embeddings in the vectorStore*/
     const embeddings = new OpenAIEmbeddings();
+
+    console.log(await pinecone.listIndexes());
     const index = pinecone.Index(PINECONE_INDEX_NAME); //change to your own index name
 
+
     //embed the PDF documents
-    await PineconeStore.fromDocuments(docs, embeddings, {
+    const t = await PineconeStore.fromDocuments(
+      docs, 
+      embeddings, {
       pineconeIndex: index,
       namespace: PINECONE_NAME_SPACE,
       textKey: 'text',
     });
+    console.log(t);
+
   } catch (error) {
     console.log('error', error);
     throw new Error('Failed to ingest your data');
